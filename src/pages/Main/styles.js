@@ -20,6 +20,10 @@ export const Card = styled.View`
   flex: 1;
   height: 100%;
   margin: 0 20px;
+  position: absolute;
+  left: 0;
+  top: 380px;
+  right: 0;
 `;
 
 export const CardHeader = styled.View`
