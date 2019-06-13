@@ -11,8 +11,8 @@ export default function Menu() {
         <QRCode
           value="https://github.com/vinicfrancisco"
           size={80}
-          bgColor="#FFF"
-          fgColor="#8B10AE"
+          fgColor="#FFF"
+          bgColor="#8B10AE"
         />
       </Code>
     </Container>
