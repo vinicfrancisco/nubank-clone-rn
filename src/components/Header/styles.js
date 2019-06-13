@@ -5,6 +5,17 @@ export const Container = styled.View`
   padding: 40px 0 30px;
 `;
 
-export const Logo = styled.View``;
+export const Top = styled.View`
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
 
-export const Title = styled.View``;
+export const Logo = styled.Image``;
+
+export const Title = styled.Text`
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 8px;
+`;
