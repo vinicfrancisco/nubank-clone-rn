@@ -1,7 +1,20 @@
 import React from 'react';
 
-import { Container } from './styles';
+import QRCode from 'react-native-qrcode';
+
+import { Container, Code } from './styles';
 
 export default function Menu() {
-  return <Container />;
+  return (
+    <Container>
+      <Code>
+        <QRCode
+          value="https://github.com/vinicfrancisco"
+          size={80}
+          bgColor="#FFF"
+          fgColor="#8B10AE"
+        />
+      </Code>
+    </Container>
+  );
 }
