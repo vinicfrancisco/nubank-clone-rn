@@ -13,7 +13,7 @@ function App() {
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Router>
-        <Stack key="root">
+        <Stack duration={0} key="root">
           <Scene hideNavBar key="main" component={Main} />
           <Scene initial hideNavBar key="login" component={Login} />
         </Stack>
