@@ -8,11 +8,10 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
-export const Title = styled.Text`
-  font-size: 40px;
-  font-weight: bold;
-  color: ${colors.white};
+export const Logo = styled.Image`
+  height: 70px;
   margin-bottom: 20px;
+  width: 70px;
 `;
 
 export const UserInfo = styled.View``;

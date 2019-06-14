@@ -1,13 +1,15 @@
 import React from 'react';
 
+import logo from '~/assets/Nubank_Logo.png';
+
 import {
-  Container, UserInfo, LoginButton, LoginInput, LoginButtonText, Title,
+  Container, UserInfo, LoginButton, LoginInput, LoginButtonText, Logo,
 } from './styles';
 
 function Login() {
   return (
     <Container>
-      <Title>Login</Title>
+      <Logo source={logo} resizeMode="contain" />
       <UserInfo>
         <LoginInput placeholder="Usuário" placeholderTextColor="#FFF" />
         <LoginInput placeholder="Senha" placeholderTextColor="#FFF" />
