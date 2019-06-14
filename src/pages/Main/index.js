@@ -1,11 +1,9 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Animated } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Header from '~/components/Header';
-import Tabs from '~/components/Tabs';
-import Menu from '~/components/Menu';
+import { Header, Menu, Tabs } from '~/components';
 
 import {
   Container,
@@ -76,9 +74,9 @@ function Main() {
               transform: [
                 {
                   translateY: translateY.interpolate({
+                    extrapolate: 'clamp',
                     inputRange: [-350, 0, 380],
                     outputRange: [-50, 0, 380],
-                    extrapolate: 'clamp',
                   }),
                 },
               ],
