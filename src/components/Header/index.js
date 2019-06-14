@@ -7,14 +7,17 @@ import {
   Container, Top, Title, Logo,
 } from './styles';
 
-export default function Header() {
+function Header() {
   return (
     <Container>
       <Top>
         <Logo source={logo} />
+
         <Title>Vinicius</Title>
       </Top>
       <Icon name="keyboard-arrow-down" size={20} color="#FFF" />
     </Container>
   );
 }
+
+export default Header;
