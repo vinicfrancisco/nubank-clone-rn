@@ -6,9 +6,18 @@ import {
   Container, Code, Nav, NavItem, NavText, SignOutButtom, SignOutButtomText,
 } from './styles';
 
-function Menu() {
+function Menu(props) {
+  const { translateY } = props;
+
   return (
-    <Container>
+    <Container
+      style={{
+        opacity: translateY.interpolate({
+          inputRange: [0, 150],
+          outputRange: [0, 1],
+        }),
+      }}
+    >
       <Code>
         <QRCode
           value="https://github.com/vinicfrancisco"
