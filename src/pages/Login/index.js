@@ -1,13 +1,20 @@
 import React from 'react';
 
-import { View } from 'react-native';
-
-import { Container } from './styles';
+import {
+  Container, UserInfo, LoginButton, LoginInput, LoginButtonText, Title,
+} from './styles';
 
 function Login() {
   return (
     <Container>
-      <View />
+      <Title>Login</Title>
+      <UserInfo>
+        <LoginInput placeholder="Usuário" placeholderTextColor="#FFF" />
+        <LoginInput placeholder="Senha" placeholderTextColor="#FFF" />
+        <LoginButton onPress={() => {}}>
+          <LoginButtonText>Entrar</LoginButtonText>
+        </LoginButton>
+      </UserInfo>
     </Container>
   );
 }
