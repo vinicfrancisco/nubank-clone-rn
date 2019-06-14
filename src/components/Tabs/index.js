@@ -5,23 +5,25 @@ import {
   Container, TabsContainer, TabItem, TabText,
 } from './styles';
 
-export default function Tabs({ translateY }) {
+function Tabs(props) {
+  const { translateY } = props;
+
   return (
     <Container
       style={{
         transform: [
           {
             translateY: translateY.interpolate({
+              extrapolate: 'clamp',
               inputRange: [0, 380],
               outputRange: [0, 30],
-              extrapolate: 'clamp',
             }),
           },
         ],
         opacity: translateY.interpolate({
+          extrapolate: 'clamp',
           inputRange: [0, 380],
           outputRange: [1, 0.3],
-          extrapolate: 'clamp',
         }),
       }}
     >
@@ -54,3 +56,5 @@ export default function Tabs({ translateY }) {
     </Container>
   );
 }
+
+export default Tabs;
