@@ -23,7 +23,7 @@ export const LoginInput = styled.TextInput`
   color: ${colors.black};
   height: 35px;
   margin-bottom: 15px;
-  padding: 4px;
+  padding: 0 10px;
   width: 275px;
 `;
 
