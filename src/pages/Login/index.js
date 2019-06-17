@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ActivityIndicator, Animated, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import logo from '~/assets/Nubank_Logo.png';
@@ -11,6 +11,7 @@ import {
   Container,
   UserInfo,
   LoginButton,
+  LoginButtonView,
   LoginInput,
   LoginButtonText,
   Logo,
@@ -19,8 +20,9 @@ import {
 
 function Login() {
   const [loading, setLoading] = useState(false);
+  const [expanding, setExpanding] = useState(false);
 
-  const [translateXY, setTranslateXY] = useState(new Animated.ValueXY({ x: 275, y: 35 }));
+  const [translateXY] = useState(new Animated.ValueXY({ x: 275, y: 35 }));
 
   function collapse(value) {
     setLoading(true);
@@ -36,6 +38,7 @@ function Login() {
   }
 
   function fullExpand(value) {
+    setExpanding(true);
     Animated.timing(value, {
       toValue: { x: metrics.screenWidth, y: metrics.screenHeight },
     }).start(() => {
@@ -47,15 +50,13 @@ function Login() {
   async function handleLogin() {
     await collapse(translateXY);
 
-    setTimeout(() => {
-      expand(translateXY);
-    }, 1000);
-
-    // await setTimeout(() => {
-    //   fullExpand(translateXY);
+    // setTimeout(() => {
+    //   expand(translateXY);
     // }, 1000);
 
-    // await Actions.main();
+    await setTimeout(() => {
+      fullExpand(translateXY);
+    }, 1000);
   }
 
   return (
@@ -84,29 +85,24 @@ function Login() {
           height: translateXY.y,
         }}
       >
-        {loading ? (
+        {loading && !expanding ? (
           <ActivityIndicator color="#FFF" />
         ) : (
-          <LoginButton
-            style={{
-              opacity: translateXY.y.interpolate({
-                inputRange: [35, metrics.screenHeight],
-                outputRange: [1, 0],
-              }),
-            }}
-          >
-            <TouchableOpacity
+          !loading
+          && !expanding && (
+            <LoginButtonView
               style={{
-                alignItems: 'center',
-                height: '100%',
-                justifyContent: 'center',
-                width: '100%',
+                opacity: translateXY.y.interpolate({
+                  inputRange: [35, metrics.screenHeight],
+                  outputRange: [1, 0],
+                }),
               }}
-              onPress={() => handleLogin()}
             >
-              <LoginButtonText>Entrar</LoginButtonText>
-            </TouchableOpacity>
-          </LoginButton>
+              <LoginButton onPress={() => handleLogin()}>
+                <LoginButtonText>Entrar</LoginButtonText>
+              </LoginButton>
+            </LoginButtonView>
+          )
         )}
       </AnimatedButton>
     </Container>
