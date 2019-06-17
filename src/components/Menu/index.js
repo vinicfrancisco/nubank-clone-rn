@@ -7,7 +7,7 @@ import {
 } from './styles';
 
 function Menu(props) {
-  const { translateY } = props;
+  const { translateY, logout } = props;
 
   return (
     <Container
@@ -49,7 +49,7 @@ function Menu(props) {
         </NavItem>
       </Nav>
 
-      <SignOutButtom onPress={() => {}}>
+      <SignOutButtom onPress={() => logout()}>
         <SignOutButtomText>Sair do app</SignOutButtomText>
       </SignOutButtom>
     </Container>

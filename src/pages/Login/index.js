@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { ActivityIndicator, Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -9,6 +9,7 @@ import { metrics, colors } from '../../styles';
 
 import {
   Container,
+  Fade,
   UserInfo,
   LoginButton,
   LoginButtonView,
@@ -23,6 +24,14 @@ function Login() {
   const [expanding, setExpanding] = useState(false);
 
   const [translateXY] = useState(new Animated.ValueXY({ x: 275, y: 35 }));
+  const fade = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(fade, {
+      duration: 500,
+      toValue: 1,
+    }).start();
+  }, []);
 
   function collapse(value) {
     setLoading(true);
@@ -61,50 +70,59 @@ function Login() {
 
   return (
     <Container>
-      <UserInfo
+      <Fade
         style={{
-          opacity: translateXY.y.interpolate({
-            inputRange: [35, metrics.screenHeight],
-            outputRange: [1, 0],
+          opacity: fade.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 1],
           }),
         }}
       >
-        <Logo source={logo} resizeMode="contain" />
+        <UserInfo
+          style={{
+            opacity: translateXY.y.interpolate({
+              inputRange: [35, metrics.screenHeight],
+              outputRange: [1, 0],
+            }),
+          }}
+        >
+          <Logo source={logo} resizeMode="contain" />
 
-        <LoginInput placeholder="Usuário" placeholderTextColor="#FFF" />
-        <LoginInput placeholder="Senha" placeholderTextColor="#FFF" />
-      </UserInfo>
+          <LoginInput placeholder="Usuário" placeholderTextColor="#FFF" />
+          <LoginInput placeholder="Senha" placeholderTextColor="#FFF" />
+        </UserInfo>
 
-      <AnimatedButton
-        style={{
-          backgroundColor: translateXY.y.interpolate({
-            inputRange: [35, metrics.screenHeight],
-            outputRange: [colors.secundary, colors.primary],
-          }),
-          width: translateXY.x,
-          height: translateXY.y,
-        }}
-      >
-        {loading && !expanding ? (
-          <ActivityIndicator color="#FFF" />
-        ) : (
-          !loading
-          && !expanding && (
-            <LoginButtonView
-              style={{
-                opacity: translateXY.y.interpolate({
-                  inputRange: [35, metrics.screenHeight],
-                  outputRange: [1, 0],
-                }),
-              }}
-            >
-              <LoginButton onPress={() => handleLogin()}>
-                <LoginButtonText>Entrar</LoginButtonText>
-              </LoginButton>
-            </LoginButtonView>
-          )
-        )}
-      </AnimatedButton>
+        <AnimatedButton
+          style={{
+            backgroundColor: translateXY.y.interpolate({
+              inputRange: [35, metrics.screenHeight],
+              outputRange: [colors.secundary, colors.primary],
+            }),
+            width: translateXY.x,
+            height: translateXY.y,
+          }}
+        >
+          {loading && !expanding ? (
+            <ActivityIndicator color="#FFF" />
+          ) : (
+            !loading
+            && !expanding && (
+              <LoginButtonView
+                style={{
+                  opacity: translateXY.y.interpolate({
+                    inputRange: [35, metrics.screenHeight],
+                    outputRange: [1, 0],
+                  }),
+                }}
+              >
+                <LoginButton onPress={() => handleLogin()}>
+                  <LoginButtonText>Entrar</LoginButtonText>
+                </LoginButton>
+              </LoginButtonView>
+            )
+          )}
+        </AnimatedButton>
+      </Fade>
     </Container>
   );
 }

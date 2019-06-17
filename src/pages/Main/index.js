@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Animated } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -20,7 +21,7 @@ import {
 
 function Main() {
   let offset = 0;
-  const fadeIn = new Animated.Value(0);
+  const fade = new Animated.Value(0);
   const translateY = new Animated.Value(0);
 
   const animatedEvent = Animated.event(
@@ -35,11 +36,18 @@ function Main() {
   );
 
   useEffect(() => {
-    Animated.timing(fadeIn, {
+    Animated.timing(fade, {
       duration: 500,
-      toValue: 10,
+      toValue: 1,
     }).start();
   }, []);
+
+  function handleLogout() {
+    Animated.timing(fade, {
+      duration: 500,
+      toValue: 2,
+    }).start(() => Actions.login());
+  }
 
   function onHandlerStateChange(event) {
     if (event.nativeEvent.oldState === State.ACTIVE) {
@@ -72,16 +80,16 @@ function Main() {
     <Container>
       <FadeIn
         style={{
-          opacity: fadeIn.interpolate({
-            inputRange: [0, 10],
-            outputRange: [0, 1],
+          opacity: fade.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [0, 1, 0],
           }),
         }}
       >
         <Header />
 
         <Content>
-          <Menu translateY={translateY} />
+          <Menu logout={handleLogout} translateY={translateY} />
           <PanGestureHandler
             onGestureEvent={animatedEvent}
             onHandlerStateChange={onHandlerStateChange}
