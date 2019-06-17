@@ -28,7 +28,6 @@ function Login() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(login);
     if (!login.loading && login.success) {
       fullExpand(translateXY);
     }

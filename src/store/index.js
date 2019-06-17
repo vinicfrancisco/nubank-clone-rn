@@ -4,7 +4,9 @@ import createSagaMiddleware from 'redux-saga';
 import sagas from '~/store/sagas';
 import reducers from '~/store/ducks';
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMonitor = __DEV__ ? console.tron.createSagaMonitor() : null;
+const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
+
 const middlewares = [sagaMiddleware];
 
 const composer = __DEV__
