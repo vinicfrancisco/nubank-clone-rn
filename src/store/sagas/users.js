@@ -1,11 +1,19 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import {
+  takeLatest, put, call, delay,
+} from 'redux-saga/effects';
 import { Types as UsersTypes, Creators as UsersActions } from '~/store/ducks/users';
 
-export function* login() {
+export function* login(action) {
   try {
-    console.tron.log('teste');
+    const { callback } = action.payload;
+    yield delay(1000);
+    // throw new Error();
+
+    yield call(callback, 'main');
+
     yield put(UsersActions.loginSuccess(true));
   } catch (error) {
+    console.tron.log(error);
     yield put(UsersActions.loginFailure(error));
   }
 }

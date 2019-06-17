@@ -6,9 +6,9 @@ export const Types = {
 
 const initialState = {
   login: {
-    loading: false,
     error: null,
     success: null,
+    loading: false,
   },
 };
 
@@ -37,8 +37,9 @@ export default function users(state = initialState, action) {
 }
 
 export const Creators = {
-  loginRequest: () => ({
+  loginRequest: callback => ({
     type: Types.LOGIN_REQUEST,
+    payload: { callback },
   }),
   loginSuccess: success => ({
     type: Types.LOGIN_SUCCESS,

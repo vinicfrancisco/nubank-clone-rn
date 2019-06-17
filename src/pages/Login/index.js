@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ActivityIndicator, Animated } from 'react-native';
+import { ActivityIndicator, Animated, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,63 +11,31 @@ import { Page } from '~/components';
 import { metrics, colors } from '~/styles';
 
 import {
-  UserInfo,
-  LoginButton,
-  LoginButtonView,
-  LoginInput,
-  LoginButtonText,
-  Logo,
-  AnimatedButton,
+  UserInfo, LoginInput, LoginButtonText, Logo, AnimatedButton,
 } from './styles';
 
 function Login() {
-  const [expanding, setExpanding] = useState(false);
   const [translateXY] = useState(new Animated.ValueXY({ x: 275, y: 35 }));
-
   const { login } = useSelector(state => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!login.loading && login.success) {
-      fullExpand(translateXY);
-    }
-  }, [login.loading]);
+    !login.success
+      && Animated.timing(translateXY, {
+        toValue: { x: login.loading ? 35 : 275, y: 35 },
+      }).start();
+  }, [login]);
 
-  function collapse(value) {
-    // setLoading(true);
-
-    Animated.timing(value, {
-      toValue: { x: 35, y: 35 },
-    }).start();
-  }
-
-  // function expand(value) {
-  //   Animated.timing(value, {
-  //     toValue: { x: 275, y: 35 },
-  //   }).start(() => setLoading(false));
-  // }
-
-  function fullExpand(value) {
-    setExpanding(true);
-    Animated.timing(value, {
+  async function callback(route) {
+    Animated.timing(translateXY, {
       toValue: { x: metrics.screenWidth, y: metrics.screenHeight },
     }).start(() => {
-      // setLoading(false);
-      Actions.main();
+      Actions[route]();
     });
   }
 
-  async function handleLogin() {
-    dispatch(UsersActions.loginRequest());
-    await collapse(translateXY);
-
-    // setTimeout(() => {
-    //   expand(translateXY);
-    // }, 1000);
-
-    // await setTimeout(() => {
-    //   fullExpand(translateXY);
-    // }, 1000);
+  function handleLogin() {
+    dispatch(UsersActions.loginRequest(callback));
   }
 
   return (
@@ -86,36 +54,29 @@ function Login() {
         <LoginInput placeholder="Senha" placeholderTextColor="#FFF" />
       </UserInfo>
 
-      <AnimatedButton
-        style={{
-          backgroundColor: translateXY.y.interpolate({
-            inputRange: [35, metrics.screenHeight],
-            outputRange: [colors.secundary, colors.primary],
-          }),
-          width: translateXY.x,
-          height: translateXY.y,
-        }}
-      >
-        {login.loading && !expanding ? (
-          <ActivityIndicator color="#FFF" />
-        ) : (
-          !login.loading
-          && !expanding && (
-            <LoginButtonView
-              style={{
-                opacity: translateXY.y.interpolate({
-                  inputRange: [35, metrics.screenHeight],
-                  outputRange: [1, 0],
-                }),
-              }}
-            >
-              <LoginButton onPress={() => handleLogin()}>
-                <LoginButtonText>Entrar</LoginButtonText>
-              </LoginButton>
-            </LoginButtonView>
-          )
-        )}
-      </AnimatedButton>
+      <TouchableOpacity onPress={() => handleLogin()}>
+        <AnimatedButton
+          style={{
+            backgroundColor: translateXY.y.interpolate({
+              inputRange: [35, metrics.screenHeight],
+              outputRange: [colors.secundary, colors.primary],
+            }),
+            width: translateXY.x,
+            height: translateXY.y,
+            borderRadius: translateXY.x.interpolate({
+              inputRange: [35, 275],
+              outputRange: [25, 4],
+            }),
+          }}
+        >
+          {!login.success
+            && (login.loading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <LoginButtonText>Entrar</LoginButtonText>
+            ))}
+        </AnimatedButton>
+      </TouchableOpacity>
     </Page>
   );
 }
