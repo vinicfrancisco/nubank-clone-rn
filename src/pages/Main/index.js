@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Animated } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -20,6 +19,7 @@ import {
 } from './styles';
 
 function Main() {
+  const page = useRef();
   let offset = 0;
   const translateY = new Animated.Value(0);
 
@@ -35,10 +35,7 @@ function Main() {
   );
 
   function handleLogout() {
-    Animated.timing(fade, {
-      duration: 500,
-      toValue: 2,
-    }).start(() => Actions.login());
+    page.current.logout();
   }
 
   function onHandlerStateChange(event) {
@@ -69,7 +66,7 @@ function Main() {
   }
 
   return (
-    <Page>
+    <Page ref={page}>
       <Header />
 
       <Content>

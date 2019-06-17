@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { ActivityIndicator, Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -31,11 +31,11 @@ function Login() {
     }).start();
   }
 
-  function expand(value) {
-    Animated.timing(value, {
-      toValue: { x: 275, y: 35 },
-    }).start(() => setLoading(false));
-  }
+  // function expand(value) {
+  //   Animated.timing(value, {
+  //     toValue: { x: 275, y: 35 },
+  //   }).start(() => setLoading(false));
+  // }
 
   function fullExpand(value) {
     setExpanding(true);

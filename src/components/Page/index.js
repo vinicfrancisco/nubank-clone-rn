@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
 
 import { Animated } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import { Container, Fade } from './styles';
 
-function Page(props) {
+function Page(props, ref) {
   const { children } = props;
   const fade = new Animated.Value(0);
 
@@ -14,6 +15,15 @@ function Page(props) {
       toValue: 1,
     }).start();
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    logout() {
+      Animated.timing(fade, {
+        duration: 500,
+        toValue: 2,
+      }).start(() => Actions.login());
+    },
+  }));
 
   return (
     <Container>
@@ -31,4 +41,4 @@ function Page(props) {
   );
 }
 
-export default Page;
+export default forwardRef(Page);
