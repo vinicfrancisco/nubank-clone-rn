@@ -2,17 +2,6 @@ import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../styles';
 
-export const Container = styled.View`
-  background: ${colors.primary};
-  flex: 1;
-`;
-
-export const Fade = styled(Animated.View)`
-  align-items: center;
-  flex: 1;
-  justify-content: center;
-`;
-
 export const Logo = styled.Image`
   height: 70px;
   margin-bottom: 20px;

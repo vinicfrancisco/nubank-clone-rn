@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';

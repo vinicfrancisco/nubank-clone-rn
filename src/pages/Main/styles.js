@@ -1,18 +1,6 @@
 import { Animated } from 'react-native';
 import styled from 'styled-components/native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors } from '../../styles';
-
-export const Container = styled.View`
-  background: ${colors.primary};
-  flex: 1;
-`;
-
-export const FadeIn = styled(Animated.View)`
-  flex: 1;
-  justify-content: center;
-  padding-top: ${getStatusBarHeight()}px;
-`;
 
 export const Content = styled.View`
   flex: 1;
