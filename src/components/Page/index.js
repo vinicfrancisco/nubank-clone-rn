@@ -17,11 +17,11 @@ function Page(props, ref) {
   }, []);
 
   useImperativeHandle(ref, () => ({
-    logout() {
+    push(page) {
       Animated.timing(fade, {
         duration: 500,
         toValue: 2,
-      }).start(() => Actions.login());
+      }).start(() => Actions[page]());
     },
   }));
 

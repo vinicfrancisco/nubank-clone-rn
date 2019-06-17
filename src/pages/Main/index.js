@@ -35,7 +35,7 @@ function Main() {
   );
 
   function handleLogout() {
-    page.current.logout();
+    page.current.push('login');
   }
 
   function onHandlerStateChange(event) {
